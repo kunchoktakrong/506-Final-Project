@@ -54,3 +54,11 @@ plt.ylabel('Average Takedowns per 15 Minutes')
 plt.title('Clustering Fighters: StrAcc vs. TDAvg')
 plt.legend(title='Cluster')
 plt.show()
+
+'''
+Cluster Centers:
+      StrAcc     TDAvg
+0  52.214689  7.113277
+1  36.322785  1.670497
+2  51.117207  1.738645
+'''
