@@ -53,3 +53,11 @@ plt.ylabel('Significant Strikes Landed Per Minute')
 plt.title('Clustering Fighters: StrAcc vs. SLpM')
 plt.legend(title='Cluster')
 plt.show()
+
+'''
+Cluster Centers:
+      StrAcc      SLpM
+0  48.892060  5.352940
+1  32.128607  1.914946
+2  50.179945  2.635804
+'''
