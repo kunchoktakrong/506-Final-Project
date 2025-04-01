@@ -1,4 +1,4 @@
-# 506-Final-Project
+# 506-Final-Project (Midterm Report Added)
 
 Description: 
 Utilizes fighter data to determine which fighter will win or if the fighters will draw in a UFC bout.
