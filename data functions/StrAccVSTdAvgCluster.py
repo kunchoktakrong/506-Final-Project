@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+import plotly.express as px
+
 
 fighters = pd.read_csv('../new_fighters.csv')
 
@@ -39,9 +41,28 @@ print(fighters_clean[['name', 'StrAcc', 'TDAvg']].head())
 scaler = StandardScaler()
 X = scaler.fit_transform(fighters_clean[['StrAcc', 'TDAvg']])
 
-k = 3
+k = 4
 kmeans = KMeans(n_clusters=k, random_state=42)
 fighters_clean['cluster'] = kmeans.fit_predict(X)
+fighters_clean[['name', 'cluster']].to_csv('fighter_clusters.csv', index=False)
+
+# Create interactive scatterplot
+fig = px.scatter(
+    fighters_clean,
+    x='StrAcc',
+    y='TDAvg',
+    color='cluster',
+    hover_name='name',
+    title='Interactive Clustering: StrAcc vs. TDAvg',
+    labels={
+        'StrAcc': 'Significant Strike Accuracy (%)',
+        'TDAvg': 'Average Takedowns per 15 Minutes',
+        'cluster': 'Cluster'
+    }
+)
+fig.update_traces(marker=dict(size=8, opacity=0.7), selector=dict(mode='markers'))
+fig.show()
+
 
 cluster_centers = scaler.inverse_transform(kmeans.cluster_centers_)
 print("Cluster Centers:")
@@ -54,11 +75,3 @@ plt.ylabel('Average Takedowns per 15 Minutes')
 plt.title('Clustering Fighters: StrAcc vs. TDAvg')
 plt.legend(title='Cluster')
 plt.show()
-
-'''
-Cluster Centers:
-      StrAcc     TDAvg
-0  52.214689  7.113277
-1  36.322785  1.670497
-2  51.117207  1.738645
-'''
