@@ -22,4 +22,3 @@ jobs:
       - name: Run test
         run: |
           python data_functions/test_predict.py
-
