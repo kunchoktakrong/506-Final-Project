@@ -20,4 +20,4 @@ jobs:
 
       - name: Run test
         run: |
-          python "data functions/test_predict.py"
+          python "data-functions/test_predict.py"
