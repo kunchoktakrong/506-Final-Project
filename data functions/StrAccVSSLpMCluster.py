@@ -3,10 +3,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+import plotly.express as px
 
 fighters = pd.read_csv('../new_fighters.csv')
 
-def convert_pct(x):
+def convert_pct(x):     
     if isinstance(x, str):
         x = x.replace('"', '').strip() 
         if '%' in x:
@@ -38,9 +39,25 @@ print(fighters_clean[['name', 'StrAcc', 'SLpM']].head())
 scaler = StandardScaler()
 X = scaler.fit_transform(fighters_clean[['StrAcc', 'SLpM']])
 
-k = 3
+k = 4
 kmeans = KMeans(n_clusters=k, random_state=42)
 fighters_clean['cluster'] = kmeans.fit_predict(X)
+
+fig = px.scatter(
+    fighters_clean,
+    x='StrAcc',
+    y='SLpM',
+    color='cluster',
+    hover_name='name',
+    title='Interactive Clustering: StrAcc vs. SLpM',
+    labels={
+        'StrAcc': 'Significant Strike Accuracy (%)',
+        'SLpM': 'Significant Strikes Landed per Minute',
+        'cluster': 'Cluster'
+    }
+)
+fig.update_traces(marker=dict(size=8, opacity=0.7), selector=dict(mode='markers'))
+fig.show()
 
 cluster_centers = scaler.inverse_transform(kmeans.cluster_centers_)
 print("Cluster Centers:")
@@ -53,11 +70,3 @@ plt.ylabel('Significant Strikes Landed Per Minute')
 plt.title('Clustering Fighters: StrAcc vs. SLpM')
 plt.legend(title='Cluster')
 plt.show()
-
-'''
-Cluster Centers:
-      StrAcc      SLpM
-0  48.892060  5.352940
-1  32.128607  1.914946
-2  50.179945  2.635804
-'''
