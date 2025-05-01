@@ -1,5 +1,6 @@
 name: Run Tests
 on: [push, pull_request]
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -20,4 +21,5 @@ jobs:
 
       - name: Run test
         run: |
-          python "data_functions/test_predict.py"
+          python data_functions/test_predict.py
+
