@@ -6,7 +6,7 @@ test:
 
 # CLUSTERING
 cluster-stracc-slpm:
-	python3 data_functions/StrAccVSSSLpMCluster.py
+	python3 data_functions/StrAccVSSLpMCluster.py
 
 cluster-stracc-tdavg:
 	python3 data_functions/StrAccVSTdAvgCluster.py
@@ -15,7 +15,7 @@ cluster-dbscan:
 	python3 data_functions/StrAccVSTdAvgDB.py
 
 cluster-gmm-slpm:
-	python3 data_functions/StrAccVSSLpMGauss.py
+	python3 data_functions/StrAccVSSSLpMGauss.py
 
 cluster-gmm-tdavg:
 	python3 data_functions/StrAccVSTdAvgGauss.py
