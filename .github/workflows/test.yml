@@ -1,8 +1,9 @@
-name: Run Tests
+name: Run Full Pipeline
+
 on: [push, pull_request]
 
 jobs:
-  test:
+  run-all:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +20,44 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run test
-        run: |
-          python data_functions/test_predict.py
+      - name: Run unit test
+        run: make test
+
+      # CLUSTERING
+      - name: Cluster - StrAcc vs SLpM
+        run: make cluster-stracc-slpm
+
+      - name: Cluster - StrAcc vs TDAvg
+        run: make cluster-stracc-tdavg
+
+      - name: Cluster - DBSCAN
+        run: make cluster-dbscan
+
+      - name: Cluster - GMM SLpM
+        run: make cluster-gmm-slpm
+
+      - name: Cluster - GMM TDAvg
+        run: make cluster-gmm-tdavg
+
+      - name: Scatter - StrAcc
+        run: make scatter-stracc
+
+      # PREDICTION
+      - name: Predict - Forest
+        run: make predict-forest
+
+      - name: Predict - Logistic Regression
+        run: make predict-logreg
+
+      - name: Predict - Cluster Forest
+        run: make predict-cluster-forest
+
+      - name: Predict - Cluster Logistic Regression
+        run: make predict-cluster-logreg
+
+      # ANALYSIS
+      - name: Compare Clusters
+        run: make compare-clusters
+
+      - name: Cluster Diagnostics
+        run: make cluster-diagnostics
