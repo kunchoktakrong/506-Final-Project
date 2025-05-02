@@ -6,9 +6,9 @@ import os
 
 
 def load_data_and_train(test_mode=False):
-    base_dir = os.path.dirname(__file__)
-    matches = pd.read_csv(os.path.join(base_dir, 'scraping/new_matches.csv'))
-    clusters = pd.read_csv(os.path.join(base_dir, 'fighter_clusters.csv'))
+    matches = pd.read_csv('scraping/new_matches.csv')
+    clusters = pd.read_csv('data_functions/fighter_clusters.csv')
+
 
     matches = matches.merge(clusters.rename(columns={'name': 'fighter_1', 'cluster': 'cluster_1'}), on='fighter_1', how='left')
     matches = matches.merge(clusters.rename(columns={'name': 'fighter_2', 'cluster': 'cluster_2'}), on='fighter_2', how='left')
