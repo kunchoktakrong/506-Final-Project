@@ -1,5 +1,4 @@
 name: Run Full Pipeline
-
 on: [push, pull_request]
 
 jobs:
@@ -7,8 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -23,7 +21,6 @@ jobs:
       - name: Run unit test
         run: make test
 
-      # CLUSTERING
       - name: Cluster - StrAcc vs SLpM
         run: make cluster-stracc-slpm
 
@@ -42,7 +39,6 @@ jobs:
       - name: Scatter - StrAcc
         run: make scatter-stracc
 
-      # PREDICTION
       - name: Predict - Forest
         run: make predict-forest
 
@@ -55,7 +51,6 @@ jobs:
       - name: Predict - Cluster Logistic Regression
         run: make predict-cluster-logreg
 
-      # ANALYSIS
       - name: Compare Clusters
         run: make compare-clusters
 
