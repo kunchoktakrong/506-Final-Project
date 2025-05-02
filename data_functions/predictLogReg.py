@@ -5,8 +5,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 
-matches = pd.read_csv('new_matches.csv')
-fighters = pd.read_csv('../new_fighters.csv')
+matches = pd.read_csv('../scraping/new_matches.csv')
+fighters = pd.read_csv('../scraping/new_fighters.csv')
 
 def convert_pct(x):
     if isinstance(x, str):
