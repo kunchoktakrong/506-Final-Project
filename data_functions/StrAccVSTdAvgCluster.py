@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 import plotly.express as px
 
 
-fighters = pd.read_csv('new_fighters.csv')
+fighters = pd.read_csv('scraping/new_fighters.csv')
 
 def convert_pct(x):
     if isinstance(x, str):
