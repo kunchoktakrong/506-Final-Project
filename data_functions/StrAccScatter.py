@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-matches = pd.read_csv('../new_matches.csv')
+matches = pd.read_csv('../scraping/new_matches.csv')
 
 matches = matches.rename(columns={matches.columns[12]: "sig_str_pct_1"})
 
