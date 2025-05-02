@@ -15,7 +15,7 @@ cluster-dbscan:
 	python3 data_functions/StrAccVSTdAvgDB.py
 
 cluster-gmm-slpm:
-	python3 data_functions/StrAccVSSSLpMGauss.py
+	python3 data_functions/StrAccVSSLpMGauss.py
 
 cluster-gmm-tdavg:
 	python3 data_functions/StrAccVSTdAvgGauss.py
