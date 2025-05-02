@@ -1,10 +1,14 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.mixture import GaussianMixture
 
-fighters = pd.read_csv('scraping/new_fighters.csv')
+base_dir = os.path.dirname(__file__)
+fighters_fp = os.path.abspath(os.path.join(base_dir, '..', 'scraping', 'new_fighters.csv'))
+
+fighters = pd.read_csv(fighters_fp)
 
 def convert_pct(x):
     if isinstance(x, str):
@@ -18,7 +22,7 @@ def convert_pct(x):
     return x
 
 fighters['StrAcc'] = fighters['StrAcc'].apply(convert_pct)
-fighters['SLpM'] = pd.to_numeric(fighters['SLpM'], errors='coerce')
+fighters['SLpM']   = pd.to_numeric(fighters['SLpM'], errors='coerce')
 
 fighters_clean = fighters.dropna(subset=['StrAcc', 'SLpM']).copy()
 fighters_clean = fighters_clean[
@@ -33,7 +37,10 @@ gmm = GaussianMixture(n_components=4, random_state=42)
 fighters_clean['cluster'] = gmm.fit_predict(X)
 
 plt.figure(figsize=(10, 6))
-sns.scatterplot(data=fighters_clean, x='StrAcc', y='SLpM', hue='cluster', palette='tab10', s=80, alpha=0.8)
+sns.scatterplot(
+    data=fighters_clean, x='StrAcc', y='SLpM',
+    hue='cluster', palette='tab10', s=80, alpha=0.8
+)
 plt.title('GMM Clustering: StrAcc vs. SLpM')
 plt.xlabel('Career Significant Strike Accuracy (%)')
 plt.ylabel('Significant Strikes Landed Per Minute')
