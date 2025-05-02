@@ -2,7 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-matches = pd.read_csv('../new_matches.csv')
+matches = pd.read_csv('../scraping/new_matches.csv')
 clusters = pd.read_csv('fighter_clusters.csv')  
 
 matches = matches.merge(clusters.rename(columns={'name': 'fighter_1', 'cluster': 'cluster_1'}), on='fighter_1', how='left')
