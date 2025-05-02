@@ -3,7 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score
 
-matches = pd.read_csv('../new_matches.csv')
+matches = pd.read_csv('../scraping/new_matches.csv')
 clusters = pd.read_csv('fighter_clusters.csv')  # from StrAcc vs TDAvg clustering
 
 matches = matches.merge(clusters.rename(columns={'name': 'fighter_1', 'cluster': 'cluster_1'}), on='fighter_1', how='left')
