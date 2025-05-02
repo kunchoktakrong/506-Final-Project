@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 
-fighters = pd.read_csv('../new_fighters.csv')
+fighters = pd.read_csv('../scraping/new_fighters.csv')
 
 def convert_pct(x):
     if isinstance(x, str):
