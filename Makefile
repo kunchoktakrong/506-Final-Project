@@ -1,63 +1,42 @@
-name: Run Full Pipeline
+# TESTING
+test:
+	PYTHONPATH=. pytest data_functions/test_predict.py
 
-on: [push, pull_request]
+# CLUSTERING
+cluster-stracc-slpm:
+	python3 data_functions/StrAccVSSLpMCluster.py
 
-jobs:
-  run-all:
-    runs-on: ubuntu-latest
+cluster-stracc-tdavg:
+	python3 data_functions/StrAccVSTdAvgCluster.py
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+cluster-dbscan:
+	python3 data_functions/StrAccVSTdAvgDB.py
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+cluster-gmm-slpm:
+	python3 data_functions/StrAccVSSLpMGauss.py
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+cluster-gmm-tdavg:
+	python3 data_functions/StrAccVSTdAvgGauss.py
 
-      - name: Run unit test
-        run: make test
+scatter-stracc:
+	python3 data_functions/StrAccScatter.py
 
-      # CLUSTERING
-      - name: Cluster - StrAcc vs SLpM
-        run: make cluster-stracc-slpm
+# PREDICTION
+predict-forest:
+	python3 data_functions/predictForest.py
 
-      - name: Cluster - StrAcc vs TDAvg
-        run: make cluster-stracc-tdavg
+predict-logreg:
+	python3 data_functions/predictLogReg.py
 
-      - name: Cluster - DBSCAN
-        run: make cluster-dbscan
+predict-cluster-forest:
+	python3 data_functions/ClusterPredictionForest.py
 
-      - name: Cluster - GMM SLpM
-        run: make cluster-gmm-slpm
+predict-cluster-logreg:
+	python3 data_functions/ClusterPredictionLogReg.py
 
-      - name: Cluster - GMM TDAvg
-        run: make cluster-gmm-tdavg
+# CLUSTER ANALYSIS
+compare-clusters:
+	python3 data_functions/ClusterComparison.py
 
-      - name: Scatter - StrAcc vs StrAcc
-        run: make scatter-stracc
-
-      # PREDICTION
-      - name: Predict - Random Forest
-        run: make predict-forest
-
-      - name: Predict - Logistic Regression
-        run: make predict-logreg
-
-      - name: Predict - Cluster Forest
-        run: make predict-cluster-forest
-
-      - name: Predict - Cluster Logistic Regression
-        run: make predict-cluster-logreg
-
-      # CLUSTER ANALYSIS
-      - name: Compare Clusters
-        run: make compare-clusters
-
-      - name: Cluster Diagnostics
-        run: make cluster-diagnostics
+cluster-diagnostics:
+	python3 data_functions/ClusterDiagnostics.py
