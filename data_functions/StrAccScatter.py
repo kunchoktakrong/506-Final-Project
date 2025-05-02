@@ -1,17 +1,19 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-matches = pd.read_csv('scraping/new_matches.csv')
+base_dir = os.path.dirname(__file__)
+matches_fp = os.path.abspath(os.path.join(base_dir, '..', 'scraping', 'new_matches.csv'))
 
+matches = pd.read_csv(matches_fp)
 matches = matches.rename(columns={matches.columns[12]: "sig_str_pct_1"})
 
 def convert_percentage(x):
     if isinstance(x, str):
         try:
             return float(x.replace('%', '').strip())
-        except Exception as e:
-            print(f"Error converting {x}: {e}")
+        except:
             return None
     return x
 
@@ -19,7 +21,6 @@ matches['sig_str_pct_1'] = matches['sig_str_pct_1'].apply(convert_percentage)
 matches['sig_str_pct_2'] = matches['sig_str_pct_2'].apply(convert_percentage)
 
 matches_clean = matches.dropna(subset=['sig_str_pct_1', 'sig_str_pct_2'])
-
 matches_clean = matches_clean[
     (matches_clean['sig_str_pct_1'] != 0) &
     (matches_clean['sig_str_pct_1'] != 100) &
