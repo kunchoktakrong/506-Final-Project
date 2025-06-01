@@ -30,8 +30,6 @@ Data will be split - 80% training, 20% testing.
 
 Final Report:
 
-https://youtu.be/b4vR2vnkSuM
-
 To reproduce these results, clone the repository, install the required dependencies, and use the Makefile to run key scripts. From the root directory, run make install to install all Python packages listed in the requirements.txt. Next, you can run make StrAccVSSLpMCluster.py to see the modeling of KMeans clusters based on striking accuracy and volume, make StrAccVSTdAvgCluster.py for clustering modeling based on takedowns and striking accuracy, or make predictForest.py to train and evaluate a random forest classifier for predicting fight winners. test_predict.py can be executed using make test, and a GitHub Actions workflow (.github/workflows/test.yml) is provided.
 
 Scrapped data from http://www.ufcstats.com/statistics/fighters and http://ufcstats.com/statistics/events/completed?page=all using scrapy.
